@@ -44,6 +44,7 @@ public class Solution {
                 for (Map.Entry<Integer, String > entry : map.entrySet()) {
                     row=row.replaceAll("\\b"+entry.getKey()+"\\b",entry.getValue());
                     //почему не работает replace
+                    // replace не работает с regexp
                 }
                 System.out.println(row);
             }

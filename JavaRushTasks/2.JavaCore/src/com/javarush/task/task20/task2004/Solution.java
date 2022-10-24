@@ -29,6 +29,9 @@ public class Solution {
             loadedObject.load(inputStream);
             //here check that the classWithStatic object is equal to the loadedObject object - проверьте тут, что classWithStatic и loadedObject равны
 
+
+            System.out.println(classWithStatic.equals(loadedObject));
+
             outputStream.close();
             inputStream.close();
 
@@ -49,16 +52,17 @@ public class Solution {
         public void save(OutputStream outputStream) throws Exception {
             PrintWriter writer = new PrintWriter(outputStream);
             writer.println(staticString);
-            writer.println(this.i);
-            writer.println(this.j);
+            writer.println(i);
+            writer.println(j);
             writer.close();
         }
 
         public void load(InputStream inputStream) throws Exception {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            staticString= reader.readLine();
-            this.i = Integer.parseInt(reader.readLine()); //почему надо this и не надо у статика
-            this.j = Integer.parseInt(reader.readLine());
+            staticString = reader.readLine();
+            // ClassWithStatic.staticString = reader.readLine(); // эквивалентно предыдущей строке
+            i = Integer.parseInt(reader.readLine());
+            j = Integer.parseInt(reader.readLine());
             reader.close();
         }
 

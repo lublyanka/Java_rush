@@ -46,27 +46,27 @@ public class Solution {
             PrintWriter printWriter = new PrintWriter(outputStream);
 
             if(users.size() > 0){
-                /*for (User user: users) {
+                for (User user: users) {
                     printWriter.println(user.getFirstName());
                     printWriter.println(user.getLastName());
                     printWriter.println(user.getBirthDate().getTime());
                     printWriter.println(user.isMale());
                     printWriter.println(user.getCountry());
-                }*/
-                for (User current : this.users) {
-                    StringBuilder sb = new StringBuilder();
-                    sb.append(current.getFirstName());
-                    sb.append("/");
-                    sb.append(current.getLastName());
-                    sb.append("/");
-                    sb.append(current.getBirthDate().getTime());
-                    sb.append("/");
-                    sb.append(current.isMale());
-                    sb.append("/");
-                    sb.append(current.getCountry());
-
-                    printWriter.println(sb.toString());
                 }
+//                for (User current : this.users) {
+//                    StringBuilder sb = new StringBuilder();
+//                    sb.append(current.getFirstName());
+//                    sb.append("/");
+//                    sb.append(current.getLastName());
+//                    sb.append("/");
+//                    sb.append(current.getBirthDate().getTime());
+//                    sb.append("/");
+//                    sb.append(current.isMale());
+//                    sb.append("/");
+//                    sb.append(current.getCountry());
+//
+//                    printWriter.println(sb.toString());
+//                }
             }
             printWriter.close();
         }
@@ -74,38 +74,38 @@ public class Solution {
         public void load(InputStream inputStream) throws Exception {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
-            /*while (reader.ready()){
+            while (reader.ready()){
                 User user = new User();
                 user.setFirstName(reader.readLine());
                 user.setLastName(reader.readLine());
                 user.setBirthDate(new Date(Long.parseLong(reader.readLine())));
-                user.setMale(Boolean.getBoolean(reader.readLine()));
+                user.setMale(Boolean.parseBoolean(reader.readLine()));
                 user.setCountry(User.Country.valueOf(reader.readLine()));
                 users.add(user);
-            }*/
-            String line;
-            while ((line = reader.readLine()) != null) {
-                User user = new User();
-                String[] lineArray = line.split("/");
-                if (lineArray.length < 5) {
-                    break;
-                }
-                user.setFirstName(lineArray[0]);
-                user.setLastName(lineArray[1]);
-                user.setBirthDate(new Date(Long.parseLong(lineArray[2])));
-                user.setMale(Boolean.parseBoolean(lineArray[3]));
-                switch (lineArray[4]) {
-                    case "UKRAINE":
-                        user.setCountry(User.Country.UKRAINE);
-                        break;
-                    case "RUSSIA":
-                        user.setCountry(User.Country.RUSSIA);
-                        break;
-                    default:
-                        user.setCountry(User.Country.OTHER);
-                        break;
-                }
-                this.users.add(user);}
+            }
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                User user = new User();
+//                String[] lineArray = line.split("/");
+//                if (lineArray.length < 5) {
+//                    break;
+//                }
+//                user.setFirstName(lineArray[0]);
+//                user.setLastName(lineArray[1]);
+//                user.setBirthDate(new Date(Long.parseLong(lineArray[2])));
+//                user.setMale(Boolean.parseBoolean(lineArray[3]));
+//                switch (lineArray[4]) {
+//                    case "UKRAINE":
+//                        user.setCountry(User.Country.UKRAINE);
+//                        break;
+//                    case "RUSSIA":
+//                        user.setCountry(User.Country.RUSSIA);
+//                        break;
+//                    default:
+//                        user.setCountry(User.Country.OTHER);
+//                        break;
+//                }
+//                this.users.add(user);}
             reader.close();
         }
 
