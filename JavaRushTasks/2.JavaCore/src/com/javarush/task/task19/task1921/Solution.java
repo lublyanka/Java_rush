@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 /* 
 Хуан Хуанович
@@ -24,24 +26,37 @@ public class Solution {
                 int dataLength = data.length;
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
                 Date date = null;
-                StringBuilder stringBuilder = new StringBuilder();
+               /* StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder
                         .append(data[dataLength-1])
                         .append("/")
                         .append(data[dataLength-2])
                         .append("/")
                         .append(data[dataLength-3]);
+                */
+
 
                 //JR Data parse
-                /*int year = Integer.parseInt(stringArray[stringArray.length - 1]);
-                int month = Integer.parseInt(stringArray[stringArray.length - 2]) - 1; //January == 0.
-                int day = Integer.parseInt(stringArray[stringArray.length - 3]);
+                /*int year = Integer.parseInt(data[data.length - 1]);
+                int month = Integer.parseInt(data[data.length - 2]) - 1; //January == 0.
+                int day = Integer.parseInt(data[data.length - 3]);
                 Calendar birthDay = new GregorianCalendar(year, month, day);*/
-                try {
+                //Иванов Иван Иванович 31 12 1987
+                //Вася 15 5 2013
+
+                //Добавили валидацию дней/месяцев через LocalDate + ZoneID
+                //int year = Integer.parseInt(data[data.length - 1]);
+                //int month = Integer.parseInt(data[data.length - 2]) ; //January == 0.
+                //int day = Integer.parseInt(data[data.length - 3]);
+                //Calendar birthDay = new GregorianCalendar(year, month, day);
+                //date = Date.from(LocalDate.of(year, month, day).atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+
+                /*try {
                     date = simpleDateFormat.parse(stringBuilder.toString());
                 } catch (ParseException e) {
                     throw new RuntimeException(e);
-                }
+                }*/
                 String name;
                 //StringBuffer можно было использовать
                 StringBuilder stringBuilder2 = new StringBuilder();
@@ -52,11 +67,12 @@ public class Solution {
                 }
                 name=stringBuilder2.toString().trim();
                 PEOPLE.add(new Person(name, date));
+                //PEOPLE.add(new Person(name, birthDay.getTime()));
 
             }
         }
 
-        //PEOPLE.forEach(x -> System.out.println(x.getName() + " " + x.getBirthDate()));
+        PEOPLE.forEach(x -> System.out.println(x.getName() + " " + x.getBirthDate()));
 
     }
 }

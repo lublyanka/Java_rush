@@ -53,7 +53,7 @@ public class Solution implements Serializable {
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
-*/
+            */
             return getInstance();
         }
 

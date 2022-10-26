@@ -32,9 +32,10 @@ public class Solution implements Serializable, Runnable {//почему не  Ex
     }
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
+        in.defaultReadObject(); //???
         Thread thread = new Thread(this); //зачем?
         thread.start(); //зачем? ничего не понятно =/
+        //вообще-то надо бы две строки выше в runner записать
     }
 
     public static void main(String[] args) {

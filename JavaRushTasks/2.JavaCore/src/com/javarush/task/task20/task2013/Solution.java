@@ -1,9 +1,7 @@
 package com.javarush.task.task20.task2013;
 
-import java.io.Externalizable;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /* 
@@ -19,7 +17,6 @@ public class Solution {
         private Person father;
         private List<Person> children;
 
-        //зачем? почему без этого нельзя
         public Person(){
 
         }
@@ -44,46 +41,81 @@ public class Solution {
 
         @Override
         //не работает с writeChars/writeInt не понимаю почему
-        /*public void writeExternal(ObjectOutput out) throws IOException {
-            out.writeChars(firstName);
-            out.writeChars(lastName);
-            out.writeInt(age);
-            out.writeObject(mother);
-            out.writeObject(father);
-            out.writeObject(children);
-        }*/
+//        public void writeExternal(ObjectOutput out) throws IOException {
+//            out.writeChars(firstName);
+//            out.writeChars(lastName);
+//            out.writeInt(age);
+//            out.writeObject(mother);
+//            out.writeObject(father);
+//            out.writeObject(children);
+//        }
+
         public void writeExternal(ObjectOutput out) throws IOException {
-            out.writeObject(firstName);
-            out.writeObject(lastName);
-            out.writeObject(age);
+            out.writeUTF(firstName);
+            out.writeUTF(lastName);
+            out.writeInt(age);
+            //mother.writeExternal(out);
+            //father.writeExternal(out);
+
             out.writeObject(mother);
             out.writeObject(father);
             out.writeObject(children);
         }
+
+//        public void writeExternal(ObjectOutput out) throws IOException {
+//            out.writeObject(firstName);
+//            out.writeObject(lastName);
+//            out.writeObject(age);
+//            out.writeObject(mother);
+//            out.writeObject(father);
+//            out.writeObject(children);
+//        }
 
         @Override
         //не работает
         // Сервер не может корректно протестировать присланное решение.
         // Убедись в наличии всех необходимых классов. Проверь, что в решении нет бесконечных циклов.
-        /*public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-            firstName = String.valueOf(in.readObject());
-            lastName = String.valueOf(in.readObject());
-            age = (int) in.readObject();
-            mother = (Person) in.readObject();
-            father = (Person) in.readObject();
-            children = (List<Person>) in.readObject();
-        }*/
         public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-            firstName = (String) in.readObject();
-            lastName = (String) in.readObject();
-            age = (int) in.readObject();
+            firstName = in.readUTF();
+            lastName = in.readUTF();
+            age = in.readInt();
             mother = (Person) in.readObject();
             father = (Person) in.readObject();
             children = (List<Person>) in.readObject();
         }
+//        public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+//            firstName = (String) in.readObject();
+//            lastName = (String) in.readObject();
+//            age = (int) in.readObject();
+//            mother = (Person) in.readObject();
+//            father = (Person) in.readObject();
+//            children = (List<Person>) in.readObject();
+//        }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        ByteArrayOutputStream inMemoryStream = new ByteArrayOutputStream();
+        ObjectOutputStream objectOutputStream
+                = new ObjectOutputStream(inMemoryStream);
 
+        Person root = new Person("name", "surname", 12);
+        root.setFather(new Person("123", "456", 23));
+        root.setMother(new Person("453", "3453465", 26));
+        List<Person> children = new ArrayList<>();
+        children.add(new Person("fghfghjh", "dsfvdfbfdg", 324) );
+        root.setChildren(children);
+
+        root.writeExternal(objectOutputStream);
+
+        objectOutputStream.close();
+        inMemoryStream.flush();
+
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(inMemoryStream.toByteArray());
+        ObjectInputStream ois = new ObjectInputStream(byteArrayInputStream);
+
+        Person newRoot = new Person();
+        newRoot.readExternal(ois);
+
+    //    System.out.println(newRoot);
     }
 }
