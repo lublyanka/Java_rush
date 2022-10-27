@@ -18,18 +18,19 @@ public class Solution implements Serializable {
         ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(your_file_name));
         ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(your_file_name));
 
-
         //2) создать экземпляр класса Solution - savedObject;
         Solution savedObject = new Solution(12);
 
         //3) записать в поток на запись savedObject (убедитесь, что они там действительно есть);
         outputStream.writeObject(savedObject);
         //savedObject.writeObject(outputStream); //вообще все падает
+        //- потому что нельзя вызывать переопределенный и объекта и точка
         outputStream.flush();
 
         //4) создать другой экземпляр класса Solution с другим параметром;
         Solution loadedObject = (Solution) inputStream.readObject();
-        //не понимаю в чем разница с loadedObject.readObject(inputStream); и аналогчной перестановки на запись
+        //не понимаю в чем разница с loadedObject.readObject(inputStream); и аналогичной перестановки на запись
+        //- потому что нельзя вызывать переопределенный и объекта и точка
 
         //5) загрузить из потока на чтение объект - loadedObject;
         outputStream.close();
@@ -44,6 +45,7 @@ public class Solution implements Serializable {
     transient private Date currentDate;
     transient private int temperature; //почему transient
     String string; //почему не transient
+    //потому что только string потом используется во-вне и собирается из других полей в конструкторе
     //почему не делаем пустой конструктор,?
 
     public Solution(int temperature) {
@@ -61,6 +63,7 @@ public class Solution implements Serializable {
     }
 
     // этого нет в решении
+    //потому что только string потом используется во-вне и собирается из других полей в конструкторе
     /*
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();

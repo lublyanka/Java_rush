@@ -15,7 +15,8 @@ public class Solution implements Serializable{
             this.nameA += nameA;
         }
         public A (){}
- //почему тут, почему не в B
+        //почему тут, почему не в B
+        //потому что B Serializable, а А -нет, и в B есть А-поля
         }
 
     public class B extends A implements Serializable  {

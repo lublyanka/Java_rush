@@ -13,8 +13,8 @@ public class Solution {
     public static class Person implements Serializable{
         String firstName;
         String lastName;
-        transient String fullName; //почему transient
-        transient final String greeting; //почему transient
+        transient String fullName; //почему transient - потому что собираем из lastName, firstName в производную строку
+        transient final String greeting; //почему transient - потому что нет обращений извне, кроме конструктора, фактически константа
         String country;
         Sex sex;
         transient PrintStream outputStream;

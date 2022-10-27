@@ -12,13 +12,11 @@ public class Solution {
 
     public static class A {
         private void method1() {
-            System.out.println("A class, method1");
-        }
+            System.out.println("A class, method1");        }
 
         public void method2() {
             System.out.println("A class, method2");
             method1();
-
         }
     }
 
@@ -35,13 +33,11 @@ public class Solution {
 
     public static class C extends B {
         public void method1() {
-
-            System.out.println("C class, method1");
-        }
+        System.out.println("C class, method1");        }
 
         public void method2() {
             System.out.println("C class, method2");
-            super.method1();
+  //          super.method1(); //для правильной работы раскомментить, но ТАК ДЕЛАТЬ НЕ НАДО
         }
     }
 }
