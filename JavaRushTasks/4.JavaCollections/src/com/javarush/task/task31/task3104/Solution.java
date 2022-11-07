@@ -43,7 +43,7 @@ public class Solution extends SimpleFileVisitor<Path> {
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        if(file.toString().endsWith("zip") || file.toString().endsWith("rar")) //почему не работает без toString?
+        if(file.toString().endsWith("zip") || file.toString().endsWith("rar")) //почему не работает без toString? - потому что хвост file Path, а не строка
         {
             archived.add(file.toString());
         }
